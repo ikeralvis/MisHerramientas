@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, X, ExternalLink, Search, Wrench } from 'lucide-react';
+import { Plus, X, ExternalLink, Search, Wrench, Loader2 } from 'lucide-react';
+import { db } from './firebase';
+import { collection, addDoc, getDocs, deleteDoc, doc } from 'firebase/firestore';
 
 export default function App() {
   const [tools, setTools] = useState([]);
@@ -13,74 +15,79 @@ export default function App() {
     color: '#3b82f6'
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
 
   const categories = [
-  { value: 'desarrollo', label: '💻 Desarrollo', color: '#3b82f6' },
-  { value: 'ia', label: '🤖 IA & Asistentes', color: '#f59e0b' },
-  { value: 'apis', label: '🔌 APIs & Testing', color: '#10b981' },
-  { value: 'diseno', label: '🎨 Diseño & UI', color: '#8b5cf6' },
-  { value: 'bibliotecas', label: '📚 Bibliotecas', color: '#ec4899' },
-  { value: 'terminal', label: '⚡ Terminal & DevOps', color: '#06b6d4' },
-  { value: 'otros', label: '🔧 Otros', color: '#6b7280' }
-];
-
+    { value: 'desarrollo', label: '💻 Desarrollo', color: '#3b82f6' },
+    { value: 'ia', label: '🤖 IA & Asistentes', color: '#f59e0b' },
+    { value: 'apis', label: '🔌 APIs & Testing', color: '#10b981' },
+    { value: 'diseno', label: '🎨 Diseño & UI', color: '#8b5cf6' },
+    { value: 'bibliotecas', label: '📚 Bibliotecas', color: '#ec4899' },
+    { value: 'terminal', label: '⚡ Terminal & DevOps', color: '#06b6d4' },
+    { value: 'otros', label: '🔧 Otros', color: '#6b7280' }
+  ];
 
   useEffect(() => {
     loadTools();
   }, []);
 
-  const loadTools = () => {
+  const loadTools = async () => {
     try {
-      const saved = localStorage.getItem('user-tools');
-      if (saved) {
-        setTools(JSON.parse(saved));
-      }
+      const querySnapshot = await getDocs(collection(db, 'tools'));
+      const toolsData = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setTools(toolsData);
     } catch (error) {
-      console.log('No hay herramientas guardadas aún');
+      console.error('Error al cargar herramientas:', error);
+      alert('Error al cargar las herramientas. Verifica tu conexión a Firebase.');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const saveTools = (updatedTools) => {
-    try {
-      localStorage.setItem('user-tools', JSON.stringify(updatedTools));
-      setTools(updatedTools);
-    } catch (error) {
-      console.error('Error al guardar:', error);
-      alert('Error al guardar las herramientas');
-    }
-  };
-
-  const handleAddTool = () => {
+  const handleAddTool = async () => {
     if (!newTool.name || !newTool.url) {
       alert('Por favor completa el nombre y la URL');
       return;
     }
 
-    const tool = {
-      ...newTool,
-      id: Date.now().toString(),
-      addedAt: new Date().toISOString()
-    };
+    setIsSaving(true);
+    try {
+      const toolData = {
+        ...newTool,
+        addedAt: new Date().toISOString()
+      };
 
-    const updatedTools = [...tools, tool];
-    saveTools(updatedTools);
-    
-    setIsModalOpen(false);
-    setNewTool({
-      name: '',
-      url: '',
-      description: '',
-      category: 'desarrollo',
-      color: '#3b82f6'
-    });
+      const docRef = await addDoc(collection(db, 'tools'), toolData);
+      
+      setTools([...tools, { id: docRef.id, ...toolData }]);
+      setIsModalOpen(false);
+      setNewTool({
+        name: '',
+        url: '',
+        description: '',
+        category: 'desarrollo',
+        color: '#3b82f6'
+      });
+    } catch (error) {
+      console.error('Error al guardar:', error);
+      alert('Error al guardar la herramienta');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
-  const handleDeleteTool = (id) => {
-    if (confirm('¿Seguro que quieres eliminar esta herramienta?')) {
-      const updatedTools = tools.filter(t => t.id !== id);
-      saveTools(updatedTools);
+  const handleDeleteTool = async (id) => {
+    if (!confirm('¿Seguro que quieres eliminar esta herramienta?')) return;
+
+    try {
+      await deleteDoc(doc(db, 'tools', id));
+      setTools(tools.filter(t => t.id !== id));
+    } catch (error) {
+      console.error('Error al eliminar:', error);
+      alert('Error al eliminar la herramienta');
     }
   };
 
@@ -98,7 +105,10 @@ export default function App() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 flex items-center justify-center">
-        <div className="text-xl text-gray-600">Cargando...</div>
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="w-10 h-10 text-purple-600 animate-spin" />
+          <div className="text-xl text-gray-600">Cargando herramientas...</div>
+        </div>
       </div>
     );
   }
@@ -214,6 +224,7 @@ export default function App() {
                 <button
                   onClick={() => setIsModalOpen(false)}
                   className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  disabled={isSaving}
                 >
                   <X className="w-6 h-6" />
                 </button>
@@ -230,6 +241,7 @@ export default function App() {
                     onChange={(e) => setNewTool({ ...newTool, name: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400 transition-colors"
                     placeholder="ej: Figma"
+                    disabled={isSaving}
                   />
                 </div>
 
@@ -243,6 +255,7 @@ export default function App() {
                     onChange={(e) => setNewTool({ ...newTool, url: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400 transition-colors"
                     placeholder="https://..."
+                    disabled={isSaving}
                   />
                 </div>
 
@@ -256,6 +269,7 @@ export default function App() {
                     className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400 transition-colors resize-none"
                     rows="3"
                     placeholder="¿Para qué usas esta herramienta?"
+                    disabled={isSaving}
                   />
                 </div>
 
@@ -270,6 +284,7 @@ export default function App() {
                       setNewTool({ ...newTool, category: e.target.value, color: cat.color });
                     }}
                     className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400 transition-colors"
+                    disabled={isSaving}
                   >
                     {categories.map(cat => (
                       <option key={cat.value} value={cat.value}>
@@ -283,7 +298,7 @@ export default function App() {
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Color
                   </label>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
                     {categories.map(cat => (
                       <button
                         key={cat.value}
@@ -294,6 +309,8 @@ export default function App() {
                           transform: newTool.color === cat.color ? 'scale(1.2)' : 'scale(1)',
                           boxShadow: newTool.color === cat.color ? '0 0 0 3px white, 0 0 0 5px ' + cat.color : 'none'
                         }}
+                        disabled={isSaving}
+                        type="button"
                       />
                     ))}
                   </div>
@@ -301,9 +318,17 @@ export default function App() {
 
                 <button
                   onClick={handleAddTool}
-                  className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-medium hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl mt-6"
+                  disabled={isSaving}
+                  className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-medium hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg hover:shadow-xl mt-6 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  Añadir Herramienta
+                  {isSaving ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Guardando...
+                    </>
+                  ) : (
+                    'Añadir Herramienta'
+                  )}
                 </button>
               </div>
             </div>
