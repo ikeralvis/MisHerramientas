@@ -15,12 +15,15 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   const categories = [
-    { value: 'desarrollo', label: 'Desarrollo', color: '#3b82f6' },
-    { value: 'diseño', label: 'Diseño', color: '#8b5cf6' },
-    { value: 'productividad', label: 'Productividad', color: '#10b981' },
-    { value: 'ai', label: 'IA', color: '#f59e0b' },
-    { value: 'otros', label: 'Otros', color: '#6b7280' }
-  ];
+  { value: 'desarrollo', label: '💻 Desarrollo', color: '#3b82f6' },
+  { value: 'ia', label: '🤖 IA & Asistentes', color: '#f59e0b' },
+  { value: 'apis', label: '🔌 APIs & Testing', color: '#10b981' },
+  { value: 'diseno', label: '🎨 Diseño & UI', color: '#8b5cf6' },
+  { value: 'bibliotecas', label: '📚 Bibliotecas', color: '#ec4899' },
+  { value: 'terminal', label: '⚡ Terminal & DevOps', color: '#06b6d4' },
+  { value: 'otros', label: '🔧 Otros', color: '#6b7280' }
+];
+
 
   useEffect(() => {
     loadTools();
