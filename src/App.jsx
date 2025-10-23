@@ -309,7 +309,7 @@ export default function App() {
           <div className="flex items-center justify-center gap-3 mb-4">
             <Wrench className="w-10 h-10 text-purple-600" />
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent">
-              {user ? 'ToolStack' : 'Herramientas Populares'}
+              {user ? 'StudioTools' : 'Herramientas Populares'}
             </h1>
           </div>
           <div className="flex items-center justify-center gap-4 flex-wrap">
