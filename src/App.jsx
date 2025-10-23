@@ -4,8 +4,6 @@ import { Toaster, toast } from 'sonner';
 import { db, auth, googleProvider } from './firebase';
 import { collection, addDoc, getDocs, deleteDoc, doc, query, where, updateDoc } from 'firebase/firestore';
 import { signInWithPopup, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import "core-js/stable";
-import "regenerator-runtime/runtime";
 
 
 const BASE_TOOLS = [
