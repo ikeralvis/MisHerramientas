@@ -225,17 +225,17 @@ export default function App() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-10 h-10 text-purple-600 animate-spin" />
-          <div className="text-xl text-gray-600">Cargando...</div>
+          <Loader2 className="w-10 h-10 text-purple-600 dark:text-purple-400 animate-spin" />
+          <div className="text-xl text-gray-600 dark:text-gray-300">Cargando...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 p-4 md:p-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 md:p-8 transition-colors duration-300">
       <Toaster position="top-center" richColors />
       <div className="max-w-6xl mx-auto">
         {/* Header */}
@@ -271,8 +271,8 @@ export default function App() {
 
         {/* Categories Management (solo para usuarios logueados) */}
         {user && categories.length > 0 && (
-          <div className="mb-6 bg-white/60 backdrop-blur-sm rounded-2xl p-4">
-            <h3 className="text-sm font-medium text-gray-600 mb-3">Tus categorías:</h3>
+          <div className="mb-6 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl p-4">
+            <h3 className="text-sm font-medium text-gray-600 dark:text-gray-300 mb-3">Tus categorías:</h3>
             <div className="flex flex-wrap gap-2">
               {categories.map(cat => (
                 <div
@@ -303,13 +303,13 @@ export default function App() {
         {/* Tools Grid */}
         {displayTools.length === 0 ? (
           <div className="text-center py-20">
-            <Wrench className="w-20 h-20 text-gray-300 mx-auto mb-4" />
-            <p className="text-xl text-gray-500 mb-2">Aún no hay herramientas</p>
-            <p className="text-gray-400">Crea una categoría y añade tu primera herramienta</p>
+            <Wrench className="w-20 h-20 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+            <p className="text-xl text-gray-500 dark:text-gray-400 mb-2">Aún no hay herramientas</p>
+            <p className="text-gray-400 dark:text-gray-500">Crea una categoría y añade tu primera herramienta</p>
           </div>
         ) : filteredTools.length === 0 ? (
           <div className="text-center py-20">
-            <p className="text-xl text-gray-500">No se encontraron herramientas</p>
+            <p className="text-xl text-gray-500 dark:text-gray-400">No se encontraron herramientas</p>
           </div>
         ) : (
           <div className="space-y-8">
@@ -387,19 +387,19 @@ export default function App() {
         {/* Auth Modal */}
         {showAuthModal && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl">
+            <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
                   {authMode === 'login' ? 'Iniciar Sesión' : 'Registrarse'}
                 </h2>
-                <button onClick={() => setShowAuthModal(false)} className="p-2 hover:bg-gray-100 rounded-full">
-                  <X className="w-6 h-6" />
+                <button onClick={() => setShowAuthModal(false)} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full">
+                  <X className="w-6 h-6 dark:text-gray-300" />
                 </button>
               </div>
 
               <button
                 onClick={handleGoogleLoginClick}
-                className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-white border-2 border-gray-300 rounded-2xl hover:border-purple-400 hover:shadow-lg transition-all mb-4"
+                className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-white dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-2xl hover:border-purple-400 dark:hover:border-purple-500 hover:shadow-lg transition-all mb-4"
               >
                 <svg className="w-6 h-6" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -407,15 +407,15 @@ export default function App() {
                   <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
                   <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                 </svg>
-                <span className="font-medium text-gray-700">Continuar con Google</span>
+                <span className="font-medium text-gray-700 dark:text-gray-200">Continuar con Google</span>
               </button>
 
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300"></div>
+                  <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-4 bg-white text-gray-500">o</span>
+                  <span className="px-4 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400">o</span>
                 </div>
               </div>
 
@@ -425,7 +425,7 @@ export default function App() {
                   placeholder="Email"
                   value={authEmail}
                   onChange={(e) => setAuthEmail(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:border-purple-400 dark:focus:border-purple-500"
                   required
                 />
                 <input
@@ -433,7 +433,7 @@ export default function App() {
                   placeholder="Contraseña"
                   value={authPassword}
                   onChange={(e) => setAuthPassword(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400"
+                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:border-purple-400 dark:focus:border-purple-500"
                   required
                 />
                 <button
@@ -447,7 +447,7 @@ export default function App() {
 
               <button
                 onClick={() => setAuthMode(authMode === 'login' ? 'register' : 'login')}
-                className="w-full mt-4 text-sm text-purple-600 hover:text-purple-700"
+                className="w-full mt-4 text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300"
               >
                 {authMode === 'login' ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión'}
               </button>
@@ -458,9 +458,9 @@ export default function App() {
         {/* Category Modal */}
         {isCategoryModalOpen && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
                   {editingCategory ? 'Editar Categoría' : 'Nueva Categoría'}
                 </h2>
                 <button
@@ -468,30 +468,30 @@ export default function App() {
                     setIsCategoryModalOpen(false);
                     setEditingCategory(null);
                   }}
-                  className="p-2 hover:bg-gray-100 rounded-full"
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full"
                   disabled={isSaving}
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-6 h-6 dark:text-gray-300" />
                 </button>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Nombre *
                   </label>
                   <input
                     type="text"
                     value={newCategory.name}
                     onChange={(e) => setNewCategory({ ...newCategory, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400"
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:border-purple-400 dark:focus:border-purple-500"
                     placeholder="ej: Mis Herramientas IA"
                     disabled={isSaving}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Emoji (opcional)
                   </label>
                   <div className="relative">
@@ -500,7 +500,7 @@ export default function App() {
                       type="text"
                       value={newCategory.emoji}
                       onChange={(e) => setNewCategory({ ...newCategory, emoji: e.target.value })}
-                      className="w-full px-4 py-3 pr-12 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400"
+                      className="w-full px-4 py-3 pr-12 rounded-xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:border-purple-400 dark:focus:border-purple-500"
                       placeholder="Escribe o elige un emoji"
                       disabled={isSaving}
                       maxLength="2"
@@ -508,15 +508,15 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg transition-colors"
                       disabled={isSaving}
                     >
-                      <Smile className="w-5 h-5 text-gray-500" />
+                      <Smile className="w-5 h-5 text-gray-500 dark:text-gray-400" />
                     </button>
                   </div>
 
                   {showEmojiPicker && (
-                    <div className="mt-2 p-3 bg-white border-2 border-purple-200 rounded-xl shadow-lg">
+                    <div className="mt-2 p-3 bg-white dark:bg-gray-700 border-2 border-purple-200 dark:border-purple-600 rounded-xl shadow-lg">
                       <div className="flex flex-wrap gap-2 max-h-40 overflow-y-auto">
                         <button
                           type="button"
@@ -524,7 +524,7 @@ export default function App() {
                             setNewCategory({ ...newCategory, emoji: '' });
                             setShowEmojiPicker(false);
                           }}
-                          className="w-10 h-10 rounded-lg border-2 border-gray-200 hover:border-purple-400 hover:bg-purple-50 flex items-center justify-center text-lg transition-all"
+                          className="w-10 h-10 rounded-lg border-2 border-gray-200 dark:border-gray-600 hover:border-purple-400 dark:hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/30 flex items-center justify-center text-lg transition-all"
                           disabled={isSaving}
                         >
                           ∅
@@ -537,7 +537,7 @@ export default function App() {
                               setNewCategory({ ...newCategory, emoji });
                               setShowEmojiPicker(false);
                             }}
-                            className="w-10 h-10 rounded-lg border-2 border-gray-200 hover:border-purple-400 hover:bg-purple-50 flex items-center justify-center text-xl transition-all"
+                            className="w-10 h-10 rounded-lg border-2 border-gray-200 dark:border-gray-600 hover:border-purple-400 dark:hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/30 flex items-center justify-center text-xl transition-all"
                             disabled={isSaving}
                           >
                             {emoji}
@@ -549,7 +549,7 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Color
                   </label>
                   <div className="grid grid-cols-9 gap-2">
@@ -563,7 +563,7 @@ export default function App() {
                         disabled={isSaving}
                       >
                         {newCategory.color === color && (
-                          <div className="absolute inset-0 rounded-lg border-4 border-white shadow-lg" style={{ boxShadow: `0 0 0 2px ${color}` }} />
+                          <div className="absolute inset-0 rounded-lg border-4 border-white dark:border-gray-800 shadow-lg" style={{ boxShadow: `0 0 0 2px ${color}` }} />
                         )}
                       </button>
                     ))}
@@ -571,7 +571,7 @@ export default function App() {
                 </div>
 
                 <div className="pt-2">
-                  <div className="p-4 bg-gray-50 rounded-xl flex items-center gap-3">
+                  <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl flex items-center gap-3">
                     <div
                       className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl"
                       style={{ backgroundColor: newCategory.color }}
@@ -579,10 +579,10 @@ export default function App() {
                       {newCategory.emoji || '📁'}
                     </div>
                     <div>
-                      <div className="font-medium text-gray-700">
+                      <div className="font-medium text-gray-700 dark:text-gray-200">
                         {newCategory.name || 'Vista previa'}
                       </div>
-                      <div className="text-xs text-gray-500">Así se verá tu categoría</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Así se verá tu categoría</div>
                     </div>
                   </div>
                 </div>
@@ -609,9 +609,9 @@ export default function App() {
         {/* Tool Modal */}
         {isToolModalOpen && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-800">
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
                   {editingTool ? 'Editar Herramienta' : 'Nueva Herramienta'}
                 </h2>
                 <button
@@ -619,50 +619,50 @@ export default function App() {
                     setIsToolModalOpen(false);
                     setEditingTool(null);
                   }}
-                  className="p-2 hover:bg-gray-100 rounded-full"
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full"
                   disabled={isSaving}
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-6 h-6 dark:text-gray-300" />
                 </button>
               </div>
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Nombre *
                   </label>
                   <input
                     type="text"
                     value={newTool.name}
                     onChange={(e) => setNewTool({ ...newTool, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400"
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:border-purple-400 dark:focus:border-purple-500"
                     placeholder="ej: Figma"
                     disabled={isSaving}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     URL *
                   </label>
                   <input
                     type="url"
                     value={newTool.url}
                     onChange={(e) => setNewTool({ ...newTool, url: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400"
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:border-purple-400 dark:focus:border-purple-500"
                     placeholder="https://..."
                     disabled={isSaving}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Descripción
                   </label>
                   <textarea
                     value={newTool.description}
                     onChange={(e) => setNewTool({ ...newTool, description: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400 resize-none"
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:border-purple-400 dark:focus:border-purple-500 resize-none"
                     rows="3"
                     placeholder="¿Para qué usas esta herramienta?"
                     disabled={isSaving}
@@ -670,7 +670,7 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Categoría *
                   </label>
                   <select
@@ -679,7 +679,7 @@ export default function App() {
                       const cat = categories.find(c => c.id === e.target.value);
                       setNewTool({ ...newTool, categoryId: e.target.value, color: cat?.color || PRESET_COLORS[0] });
                     }}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:outline-none focus:border-purple-400"
+                    className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 focus:outline-none focus:border-purple-400 dark:focus:border-purple-500"
                     disabled={isSaving}
                   >
                     {categories.map(cat => (
@@ -691,7 +691,7 @@ export default function App() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     Color
                   </label>
                   <div className="grid grid-cols-9 gap-2">
@@ -705,7 +705,7 @@ export default function App() {
                         disabled={isSaving}
                       >
                         {newTool.color === color && (
-                          <div className="absolute inset-0 rounded-lg border-4 border-white shadow-lg" style={{ boxShadow: `0 0 0 2px ${color}` }} />
+                          <div className="absolute inset-0 rounded-lg border-4 border-white dark:border-gray-800 shadow-lg" style={{ boxShadow: `0 0 0 2px ${color}` }} />
                         )}
                       </button>
                     ))}

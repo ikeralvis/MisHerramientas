@@ -32,7 +32,7 @@ export const ToolCard = ({
     if (viewMode === 'grid') {
         return (
             <div
-                className="group relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-md hover:shadow-xl transition-all border-2 border-white cursor-pointer"
+                className="group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-md hover:shadow-xl transition-all border-2 border-white dark:border-gray-700 cursor-pointer"
                 style={{ borderColor: `${tool.color}20` }}
                 onClick={handleCardClick}
             >
@@ -40,15 +40,15 @@ export const ToolCard = ({
                     <div className="absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                         <button
                             onClick={handleEdit}
-                            className="p-1.5 bg-blue-100 rounded-full hover:bg-blue-200"
+                            className="p-1.5 bg-blue-100 dark:bg-blue-900/50 rounded-full hover:bg-blue-200 dark:hover:bg-blue-900/70"
                         >
-                            <Edit2 className="w-4 h-4 text-blue-600" />
+                            <Edit2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                         </button>
                         <button
                             onClick={handleDelete}
-                            className="p-1.5 bg-red-100 rounded-full hover:bg-red-200"
+                            className="p-1.5 bg-red-100 dark:bg-red-900/50 rounded-full hover:bg-red-200 dark:hover:bg-red-900/70"
                         >
-                            <X className="w-4 h-4 text-red-600" />
+                            <X className="w-4 h-4 text-red-600 dark:text-red-400" />
                         </button>
                     </div>
                 )}
@@ -60,12 +60,12 @@ export const ToolCard = ({
                     {tool.name.charAt(0).toUpperCase()}
                 </div>
 
-                <h3 className="text-xl font-bold mb-2 text-gray-800 pr-12">
+                <h3 className="text-xl font-bold mb-2 text-gray-800 dark:text-gray-100 pr-12">
                     {tool.name}
                 </h3>
 
                 {tool.description && (
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
                         {tool.description}
                     </p>
                 )}
@@ -82,7 +82,7 @@ export const ToolCard = ({
     if (viewMode === 'list') {
         return (
             <div
-                className="group relative bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-sm hover:shadow-md transition-all border-2 border-white flex items-center gap-4 cursor-pointer"
+                className="group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 shadow-sm hover:shadow-md transition-all border-2 border-white dark:border-gray-700 flex items-center gap-4 cursor-pointer"
                 style={{ borderColor: `${tool.color}20` }}
                 onClick={handleCardClick}
             >
@@ -94,11 +94,11 @@ export const ToolCard = ({
                 </div>
 
                 <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-bold text-gray-800 truncate">
+                    <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 truncate">
                         {tool.name}
                     </h3>
                     {tool.description && (
-                        <p className="text-gray-600 text-sm truncate">
+                        <p className="text-gray-600 dark:text-gray-300 text-sm truncate">
                             {tool.description}
                         </p>
                     )}
@@ -109,21 +109,21 @@ export const ToolCard = ({
                         <>
                             <button
                                 onClick={handleEdit}
-                                className="p-2 bg-blue-100 rounded-lg hover:bg-blue-200 opacity-0 group-hover:opacity-100 transition-opacity"
+                                className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/70 opacity-0 group-hover:opacity-100 transition-opacity"
                             >
-                                <Edit2 className="w-4 h-4 text-blue-600" />
+                                <Edit2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                             </button>
                             <button
                                 onClick={handleDelete}
-                                className="p-2 bg-red-100 rounded-lg hover:bg-red-200 opacity-0 group-hover:opacity-100 transition-opacity"
+                                className="p-2 bg-red-100 dark:bg-red-900/50 rounded-lg hover:bg-red-200 dark:hover:bg-red-900/70 opacity-0 group-hover:opacity-100 transition-opacity"
                             >
-                                <X className="w-4 h-4 text-red-600" />
+                                <X className="w-4 h-4 text-red-600 dark:text-red-400" />
                             </button>
                         </>
                     )}
                     <button
                         onClick={handleOpenLink}
-                        className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                        className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                         style={{ color: tool.color }}
                         title="Abrir herramienta"
                     >
@@ -138,7 +138,7 @@ export const ToolCard = ({
     if (viewMode === 'compact') {
         return (
             <div
-                className="group relative bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-sm hover:shadow-md transition-all border-2 border-white cursor-pointer"
+                className="group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-4 shadow-sm hover:shadow-md transition-all border-2 border-white dark:border-gray-700 cursor-pointer"
                 style={{ borderColor: `${tool.color}20` }}
                 onClick={handleCardClick}
             >
@@ -146,15 +146,15 @@ export const ToolCard = ({
                     <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                         <button
                             onClick={handleEdit}
-                            className="p-1 bg-blue-100 rounded-full hover:bg-blue-200"
+                            className="p-1 bg-blue-100 dark:bg-blue-900/50 rounded-full hover:bg-blue-200 dark:hover:bg-blue-900/70"
                         >
-                            <Edit2 className="w-3 h-3 text-blue-600" />
+                            <Edit2 className="w-3 h-3 text-blue-600 dark:text-blue-400" />
                         </button>
                         <button
                             onClick={handleDelete}
-                            className="p-1 bg-red-100 rounded-full hover:bg-red-200"
+                            className="p-1 bg-red-100 dark:bg-red-900/50 rounded-full hover:bg-red-200 dark:hover:bg-red-900/70"
                         >
-                            <X className="w-3 h-3 text-red-600" />
+                            <X className="w-3 h-3 text-red-600 dark:text-red-400" />
                         </button>
                     </div>
                 )}
@@ -166,7 +166,7 @@ export const ToolCard = ({
                     {tool.name.charAt(0).toUpperCase()}
                 </div>
 
-                <h3 className="text-sm font-bold text-gray-800 text-center mb-2 line-clamp-1">
+                <h3 className="text-sm font-bold text-gray-800 dark:text-gray-100 text-center mb-2 line-clamp-1">
                     {tool.name}
                 </h3>
 

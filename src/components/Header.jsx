@@ -13,7 +13,7 @@ export const Header = ({ user, onLogin, onLogout }) => {
                     <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                         StudioTools
                     </h1>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                         {user ? `¡Hola, ${user.email}!` : 'Organiza tus herramientas favoritas'}
                     </p>
                 </div>
@@ -22,7 +22,7 @@ export const Header = ({ user, onLogin, onLogout }) => {
             {user ? (
                 <button
                     onClick={onLogout}
-                    className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-600 rounded-xl hover:bg-red-200 transition-all"
+                    className="flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-xl hover:bg-red-200 dark:hover:bg-red-900/50 transition-all"
                 >
                     <LogOut className="w-5 h-5" />
                     <span className="hidden md:inline">Cerrar Sesión</span>
