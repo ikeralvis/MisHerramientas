@@ -11,7 +11,7 @@ export const Header = ({ user, onLogin, onLogout }) => {
                 </div>
                 <div>
                     <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                        Mis Herramientas
+                        StudioTools
                     </h1>
                     <p className="text-sm text-gray-600">
                         {user ? `¡Hola, ${user.email}!` : 'Organiza tus herramientas favoritas'}

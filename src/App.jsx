@@ -7,6 +7,7 @@ import { Header } from './components/Header';
 import { Toolbar } from './components/Toolbar';
 import { ToolCard } from './components/ToolCard';
 import { ToolDetailModal } from './components/ToolDetailModal';
+import { InstallPWA } from './components/InstallPWA';
 
 // Hooks
 import { useAuth } from './hooks/useAuth';
@@ -740,6 +741,9 @@ export default function App() {
             onEdit={openEditTool}
           />
         )}
+
+        {/* PWA Install Prompt */}
+        <InstallPWA />
       </div>
     </div>
   );
