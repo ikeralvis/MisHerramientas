@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.15",
+    "@tailwindcss/vite": "^4.1.18",
     "core-js": "^3.46.0",
     "firebase": "^12.4.0",
     "lucide-react": "^0.546.0",
