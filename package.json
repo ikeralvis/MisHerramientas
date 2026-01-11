@@ -15,7 +15,7 @@
     "firebase": "^12.4.0",
     "lucide-react": "^0.546.0",
     "prop-types": "^15.8.1",
-    "react": "^19.1.1",
+    "react": "^19.2.3",
     "react-dom": "^19.1.1",
     "regenerator-runtime": "^0.14.1",
     "sonner": "^2.0.7"
